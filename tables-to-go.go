@@ -56,6 +56,8 @@ func NewCmdArgs() (args *CmdArgs) {
 	flag.BoolVar(&args.TagsMastermindStructableOnly, "tags-structable-only", args.TagsMastermindStructableOnly, "generate struct with tags ONLY for use in Masterminds/structable (https://github.com/Masterminds/structable)")
 	flag.BoolVar(&args.IsMastermindStructableRecorder, "structable-recorder", args.IsMastermindStructableRecorder, "generate a structable.Recorder field")
 
+	flag.BoolVar(&args.IsSingularize, "singularize", args.IsSingularize, "singularize name of file and struct")
+
 	// disable the print of usage when an error occurs
 	flag.CommandLine.Usage = func() {}
 

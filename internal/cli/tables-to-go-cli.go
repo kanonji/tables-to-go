@@ -13,6 +13,7 @@ import (
 	"github.com/fraenky8/tables-to-go/pkg/output"
 	"github.com/fraenky8/tables-to-go/pkg/settings"
 	"github.com/fraenky8/tables-to-go/pkg/tagger"
+	"github.com/jinzhu/inflection"
 )
 
 var (
@@ -102,16 +103,20 @@ func (c columnInfo) isNullableOrTemporal() bool {
 
 func createTableStructString(settings *settings.Settings, db database.Database, table *database.Table) (string, string, error) {
 
+	tableName := table.Name
+	if settings.IsSingularize {
+		tableName = inflection.Singular(tableName)
+	}
 	var structFields strings.Builder
-	tableName := caser.String(settings.Prefix + table.Name + settings.Suffix)
+	tableFullName := caser.String(settings.Prefix + tableName + settings.Suffix)
 	// Replace any whitespace with underscores
-	tableName = strings.Map(replaceSpace, tableName)
+	tableFullName = strings.Map(replaceSpace, tableFullName)
 	if settings.IsOutputFormatCamelCase() {
-		tableName = camelCaseString(tableName)
+		tableFullName = camelCaseString(tableFullName)
 	}
 
 	// Check that the table name doesn't contain any invalid characters for Go variables
-	if !validVariableName(tableName) {
+	if !validVariableName(tableFullName) {
 		return "", "", fmt.Errorf("table name %q contains invalid characters", table.Name)
 	}
 
@@ -171,12 +176,12 @@ func createTableStructString(settings *settings.Settings, db database.Database, 
 
 	// write struct with fields
 	fileContent.WriteString("type ")
-	fileContent.WriteString(tableName)
+	fileContent.WriteString(tableFullName)
 	fileContent.WriteString(" struct {\n")
 	fileContent.WriteString(structFields.String())
 	fileContent.WriteString("}")
 
-	return tableName, fileContent.String(), nil
+	return tableFullName, fileContent.String(), nil
 }
 
 func generateImports(content *strings.Builder, settings *settings.Settings, columnInfo columnInfo) {

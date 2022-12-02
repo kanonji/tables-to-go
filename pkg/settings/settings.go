@@ -184,6 +184,8 @@ type Settings struct {
 	TagsMastermindStructableOnly   bool
 	IsMastermindStructableRecorder bool
 
+	IsSingularize bool
+
 	// TODO not implemented yet
 	TagsGorm bool
 }
@@ -224,6 +226,8 @@ func New() *Settings {
 		TagsMastermindStructable:       false,
 		TagsMastermindStructableOnly:   false,
 		IsMastermindStructableRecorder: false,
+
+		IsSingularize: false,
 
 		TagsGorm: false,
 	}
