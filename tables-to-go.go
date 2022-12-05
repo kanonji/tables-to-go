@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/fraenky8/tables-to-go/internal/cli"
-	"github.com/fraenky8/tables-to-go/pkg/database"
-	"github.com/fraenky8/tables-to-go/pkg/output"
-	"github.com/fraenky8/tables-to-go/pkg/settings"
+	"github.com/kanonji/tables-to-go/internal/cli"
+	"github.com/kanonji/tables-to-go/pkg/database"
+	"github.com/kanonji/tables-to-go/pkg/output"
+	"github.com/kanonji/tables-to-go/pkg/settings"
 )
 
 // CmdArgs represents the supported command line args

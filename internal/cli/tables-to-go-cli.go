@@ -9,11 +9,11 @@ import (
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 
-	"github.com/fraenky8/tables-to-go/pkg/database"
-	"github.com/fraenky8/tables-to-go/pkg/output"
-	"github.com/fraenky8/tables-to-go/pkg/settings"
-	"github.com/fraenky8/tables-to-go/pkg/tagger"
 	"github.com/jinzhu/inflection"
+	"github.com/kanonji/tables-to-go/pkg/database"
+	"github.com/kanonji/tables-to-go/pkg/output"
+	"github.com/kanonji/tables-to-go/pkg/settings"
+	"github.com/kanonji/tables-to-go/pkg/tagger"
 )
 
 var (

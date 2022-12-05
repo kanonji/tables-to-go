@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/fraenky8/tables-to-go/pkg/database"
-	"github.com/fraenky8/tables-to-go/pkg/settings"
+	"github.com/kanonji/tables-to-go/pkg/database"
+	"github.com/kanonji/tables-to-go/pkg/settings"
 )
 
 func TestTaggers_GenerateTags(t *testing.T) {
