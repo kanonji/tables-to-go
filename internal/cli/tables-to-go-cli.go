@@ -208,7 +208,13 @@ func generateImports(content *strings.Builder, settings *settings.Settings, colu
 }
 
 func mapDbColumnTypeToGoType(s *settings.Settings, db database.Database, column database.Column) (goType string, columnInfo columnInfo) {
-	if db.IsInteger(column) {
+	if db.IsBoolean(column) {
+		goType = "bool"
+		if db.IsNullable(column) {
+			goType = getNullType(s, "*bool", "sql.NullBool")
+			columnInfo.isNullable = true
+		}
+	} else if db.IsInteger(column) {
 		goType = "int32"
 		if db.IsBigInteger(column) {
 			goType = "int64"
@@ -238,12 +244,6 @@ func mapDbColumnTypeToGoType(s *settings.Settings, db database.Database, column 
 	} else {
 		// TODO handle special data types
 		switch column.DataType {
-		case "boolean":
-			goType = "bool"
-			if db.IsNullable(column) {
-				goType = getNullType(s, "*bool", "sql.NullBool")
-				columnInfo.isNullable = true
-			}
 		default:
 			// Everything else we cannot detect defaults to (nullable) string.
 			goType = "string"

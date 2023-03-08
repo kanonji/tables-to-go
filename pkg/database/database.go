@@ -41,6 +41,7 @@ type Database interface {
 	GetIntegerDatatypes() []string
 	IsInteger(column Column) bool
 	IsBigInteger(column Column) bool
+	IsBoolean(column Column) bool
 	IsUnsigned(column Column) bool
 
 	GetFloatDatatypes() []string

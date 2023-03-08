@@ -171,6 +171,11 @@ func (mysql *MySQL) IsBigInteger(column Column) bool {
 	return isStringInSlice(column.DataType, []string{"bigint"})
 }
 
+// IsBoolean returns true if colum is of type tinyint(1) for the MySQL database.
+func (mysql *MySQL) IsBoolean(column Column) bool {
+	return column.ColumnType == "tinyint(1)"
+}
+
 // IsUnsigned returns true if colum is marked unsigned for the MySQL database.
 func (mysql *MySQL) IsUnsigned(column Column) bool {
 	return strings.Contains(column.ColumnType, "unsigned")

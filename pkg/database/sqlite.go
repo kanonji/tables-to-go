@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"net/url"
 	"strings"
 
@@ -171,6 +172,13 @@ func (s *SQLite) IsInteger(column Column) bool {
 }
 
 func (s *SQLite) IsBigInteger(column Column) bool {
+	return false
+}
+
+func (s *SQLite) IsBoolean(column Column) bool {
+	if s.GeneralDatabase.Settings.Verbose {
+		log.Printf("%v: unsure if boolean can be detected in SQLite", column.Name) //TODO
+	}
 	return false
 }
 

@@ -175,6 +175,10 @@ func (pg *Postgresql) IsBigInteger(column Column) bool {
 	return isStringInSlice(column.DataType, []string{"bigint", "bigserial"})
 }
 
+func (pg *Postgresql) IsBoolean(column Column) bool {
+	return isStringInSlice(column.DataType, []string{"boolean"})
+}
+
 // IsUnsigned always returns false because of no unsigned in the Postgresql database.
 func (pg *Postgresql) IsUnsigned(column Column) bool {
 	return false
