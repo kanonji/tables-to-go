@@ -2,6 +2,7 @@ package cli
 
 import (
 	"fmt"
+	"log"
 	"strings"
 	"unicode"
 
@@ -223,8 +224,16 @@ func mapDbColumnTypeToGoType(s *settings.Settings, db database.Database, column 
 			goType = "u" + goType
 		}
 		if db.IsNullable(column) {
-			goType = getNullType(s, "*int", "sql.NullInt64")
-			columnInfo.isNullable = true
+			if db.IsUnsigned(column) {
+				if s.Verbose {
+					log.Println("sql.NullInt64 used instead of uint since database/sql does not have sql.NullUint32, sql.NullUint64") //TODO Resolve this inconsistency
+				}
+				goType = getNullType(s, "*"+goType, "sql.NullInt64")
+				columnInfo.isNullable = true
+			} else {
+				goType = getNullType(s, "*"+goType, "sql.Null"+strings.ToUpper(goType[0:1])+goType[1:])
+				columnInfo.isNullable = true
+			}
 		}
 	} else if db.IsFloat(column) {
 		goType = "float64"
