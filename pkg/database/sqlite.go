@@ -170,6 +170,14 @@ func (s *SQLite) IsInteger(column Column) bool {
 	return isStringInSlice(column.DataType, s.GetIntegerDatatypes())
 }
 
+func (s *SQLite) IsBigInteger(column Column) bool {
+	return false
+}
+
+func (s *SQLite) IsUnsigned(column Column) bool {
+	return false
+}
+
 func (s *SQLite) GetFloatDatatypes() []string {
 	return []string{
 		"real",

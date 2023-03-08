@@ -170,6 +170,16 @@ func (pg *Postgresql) IsInteger(column Column) bool {
 	return isStringInSlice(column.DataType, pg.GetIntegerDatatypes())
 }
 
+// IsBigInteger returns true if colum is of type bigint for the Postgresql database.
+func (pg *Postgresql) IsBigInteger(column Column) bool {
+	return isStringInSlice(column.DataType, []string{"bigint", "bigserial"})
+}
+
+// IsUnsigned always returns false because of no unsigned in the Postgresql database.
+func (pg *Postgresql) IsUnsigned(column Column) bool {
+	return false
+}
+
 // GetFloatDatatypes returns the float datatypes for the Postgresql database.
 func (pg *Postgresql) GetFloatDatatypes() []string {
 	return []string{

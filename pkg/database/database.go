@@ -40,6 +40,8 @@ type Database interface {
 
 	GetIntegerDatatypes() []string
 	IsInteger(column Column) bool
+	IsBigInteger(column Column) bool
+	IsUnsigned(column Column) bool
 
 	GetFloatDatatypes() []string
 	IsFloat(column Column) bool
@@ -66,6 +68,7 @@ type Column struct {
 	IsNullable             string         `db:"is_nullable"`
 	CharacterMaximumLength sql.NullInt64  `db:"character_maximum_length"`
 	NumericPrecision       sql.NullInt64  `db:"numeric_precision"`
+	ColumnType             string         `db:"column_type"`     // mysql specific
 	ColumnKey              string         `db:"column_key"`      // mysql specific
 	Extra                  string         `db:"extra"`           // mysql specific
 	ConstraintName         sql.NullString `db:"constraint_name"` // pg specific

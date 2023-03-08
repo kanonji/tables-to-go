@@ -209,7 +209,13 @@ func generateImports(content *strings.Builder, settings *settings.Settings, colu
 
 func mapDbColumnTypeToGoType(s *settings.Settings, db database.Database, column database.Column) (goType string, columnInfo columnInfo) {
 	if db.IsInteger(column) {
-		goType = "int"
+		goType = "int32"
+		if db.IsBigInteger(column) {
+			goType = "int64"
+		}
+		if db.IsUnsigned(column) {
+			goType = "u" + goType
+		}
 		if db.IsNullable(column) {
 			goType = getNullType(s, "*int", "sql.NullInt64")
 			columnInfo.isNullable = true

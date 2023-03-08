@@ -83,6 +83,7 @@ func (mysql *MySQL) PrepareGetColumnsOfTableStmt() (err error) {
 		  is_nullable AS is_nullable,
 		  character_maximum_length AS character_maximum_length,
 		  numeric_precision AS numeric_precision,
+		  column_type AS column_type,
 		  column_key AS column_key,
 		  extra AS extra
 		FROM information_schema.columns
@@ -163,6 +164,16 @@ func (mysql *MySQL) GetIntegerDatatypes() []string {
 // IsInteger returns true if colum is of type integer for the MySQL database.
 func (mysql *MySQL) IsInteger(column Column) bool {
 	return isStringInSlice(column.DataType, mysql.GetIntegerDatatypes())
+}
+
+// IsBigInteger returns true if colum is of type bigint for the MySQL database.
+func (mysql *MySQL) IsBigInteger(column Column) bool {
+	return isStringInSlice(column.DataType, []string{"bigint"})
+}
+
+// IsUnsigned returns true if colum is marked unsigned for the MySQL database.
+func (mysql *MySQL) IsUnsigned(column Column) bool {
+	return strings.Contains(column.ColumnType, "unsigned")
 }
 
 // GetFloatDatatypes returns the float datatypes for the MySQL database.
